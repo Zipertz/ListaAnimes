@@ -43,9 +43,7 @@ public class DetalleLibroActivity extends AppCompatActivity {
         EditText tvmUrl = findViewById(R.id.tvUrl);
         btnEliminar = findViewById(R.id.btnEliminar);
         Button btnEditar = findViewById(R.id.btnActualizar);
-        Picasso.get()
-                .load(libro.img) // Carga la imagen desde el enlace proporcionado en el objeto Libro
-                .into(imgA);
+
 
         tvTitulo.setText(libro.titulo);
         tvmResumen.setText(libro.resumen);

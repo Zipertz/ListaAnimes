@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 //            int sum = numbers.stream().reduce(0, Integer::sum);
 //            tvSum.setText(String.valueOf(sum));
 
-            Intent intent = new Intent(getApplicationContext(), ListaLibroActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ListarPokemonActivity.class);
             startActivity(intent);
 
         });
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 //            int sum = numbers.stream().reduce(0, Integer::sum);
 //            tvSum.setText(String.valueOf(sum));
 
-            Intent intent = new Intent(getApplicationContext(), CrearLibroActivity.class);
+            Intent intent = new Intent(getApplicationContext(), CrearPokemonActivity.class);
             startActivity(intent);
 
         });
