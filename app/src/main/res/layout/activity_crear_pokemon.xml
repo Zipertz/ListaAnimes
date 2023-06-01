@@ -48,14 +48,6 @@
             android:hint="tipo"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/etImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="url"
-            android:inputType="textPersonName" />
-
         <LinearLayout
             android:layout_width="379dp"
             android:layout_height="357dp"

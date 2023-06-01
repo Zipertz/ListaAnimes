@@ -31,7 +31,6 @@ public class CrearPokemonActivity extends AppCompatActivity {
         EditText etNumero = findViewById(R.id.etNumero);
         EditText etNombre= findViewById(R.id.etNombre);
         EditText etTipo = findViewById(R.id.etTipo);
-        EditText etUrl = findViewById(R.id.etImage);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +46,7 @@ public class CrearPokemonActivity extends AppCompatActivity {
                 pokemon.numero = String.valueOf(etNumero.getText());
                 pokemon.nombre = String.valueOf(etNombre.getText());
                 pokemon.tipo = String.valueOf(etTipo.getText());
-                pokemon.img = String.valueOf(etUrl.getText()); // Obtén el enlace de la imagen desde el EditText
+                pokemon.img = String.valueOf("https://assets.pokemon.com/assets/cms2/img/pokedex/full/"+String.valueOf(etNumero.getText())+".png"); // Obtén el enlace de la imagen desde el EditText
 
                 Call<Pokemon> call = services.create(pokemon);
 
