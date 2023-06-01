@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     Button accion;
     Button reset;
     Button next;
-
+    Button crear;
     EditText punt1;
     EditText punt2;
     EditText ganador;
@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         accion = findViewById(R.id.action);
         reset = findViewById(R.id.reset);
         next = findViewById(R.id.button_next);
+        crear = findViewById(R.id.btnCrearLibro);
         punt1 = findViewById(R.id.punt1);
         punt2 = findViewById(R.id.punt2);
         ganador = findViewById(R.id.ganador);
@@ -52,7 +53,15 @@ public class MainActivity extends AppCompatActivity {
 //            int sum = numbers.stream().reduce(0, Integer::sum);
 //            tvSum.setText(String.valueOf(sum));
 
-            Intent intent = new Intent(getApplicationContext(), AnimeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ListaLibroActivity.class);
+            startActivity(intent);
+
+        });
+        crear.setOnClickListener(view -> {
+//            int sum = numbers.stream().reduce(0, Integer::sum);
+//            tvSum.setText(String.valueOf(sum));
+
+            Intent intent = new Intent(getApplicationContext(), CrearLibroActivity.class);
             startActivity(intent);
 
         });
