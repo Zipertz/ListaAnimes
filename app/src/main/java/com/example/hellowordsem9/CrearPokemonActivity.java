@@ -2,7 +2,14 @@ package com.example.hellowordsem9;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +19,7 @@ import com.example.hellowordsem9.models.Pokemon;
 import com.example.hellowordsem9.servicios.ServicesWebPokemon;
 import com.example.hellowordsem9.servicios.servicesWeb;
 
+import java.io.ByteArrayOutputStream;
 import java.security.Policy;
 
 import retrofit2.Call;
@@ -21,7 +29,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CrearPokemonActivity extends AppCompatActivity {
-
+    private static final int REQUEST_CAMERA = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +39,7 @@ public class CrearPokemonActivity extends AppCompatActivity {
         EditText etNumero = findViewById(R.id.etNumero);
         EditText etNombre= findViewById(R.id.etNombre);
         EditText etTipo = findViewById(R.id.etTipo);
-
+        Button btnCamara = findViewById(R.id.btnCamera);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,5 +77,49 @@ public class CrearPokemonActivity extends AppCompatActivity {
             }
         });
 
+        btnCamara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                    Log.i("My app","El permiso de la cámara ya se ha otorgado, puedes realizar la acción deseada aquí");
+                    OpenCamera();
+                } else {
+                    // El permiso de la cámara no se ha otorgado, solicítalo al usuario
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 1000);
+                    Log.i("My app","No tienes permiso");
+                }
+            }
+        });
+    }
+
+    private void OpenCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA );
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
+            // La foto se tomó correctamente, puedes manejar el resultado aquí
+            // Por ejemplo, puedes obtener la imagen capturada utilizando data.getExtras().get("data")
+            Bundle extras = data.getExtras();
+            Bitmap bitmap = (Bitmap) extras.get("data");
+
+            // Convierte el bitmap a una cadena Base64
+            String base64Image = convertBitmapToBase64(bitmap);
+            imprimirImagenEnLog(base64Image);
+        }
+    }
+
+    private String convertBitmapToBase64(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+    private void imprimirImagenEnLog(String base64Image) {
+        Log.d("ImagenBase64", base64Image);
     }
 }
